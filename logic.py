@@ -1,19 +1,48 @@
 import random
 import os 
+import simpleguitk
+SUITS = ('\u2660', '\u2661', '\u2662', '\u2663')
+RANKS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K')
+VALUES = {'A':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, 'T':10, 'J':10, 'Q':10, 'K':10}
+CARD_SIZE = (72, 96)
+CARD_CENTER = (36, 48)
+CARD_BACK_SIZE = (72, 96)
+CARD_BACK_CENTER = (36, 48)
 
-
+# load card sprites
+card_images = simpleguitk.load_image("http://storage.googleapis.com/codeskulptor-assets/cards_jfitz.png")
+card_back = simpleguitk.load_image("http://storage.googleapis.com/codeskulptor-assets/card_jfitz_back.png")  
 
 class Card:
     def __init__(self, suit, value):
-        self.suit = suit
-        self.value = value 
+        if (suit in SUITS) and (value in RANKS):
+            self.suit = suit
+            self.value = value 
+        else:
+            self.suit = None
+            self.rank = None
+            print("Invalid card: ", suit, value)
+
+    def __str__(self):
+        return self.suit + self.value
+
+    def get_suit(self):
+        return self.suit
+
+    def get_rank(self):
+        return self.value
 
     def __repr__(self):
-        return " of ".join((self.value, self.suit))
+        return " of ".join((self.value, self.value))
 
 class Deck:
     def __init__(self):
-        self.cards = [Card(s,v) for s in ['\u2660', '\u2661', '\u2662', '\u2663'] for v in ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']]
+        self.cards = [Card(s,v) for s in SUITS for v in RANKS]
+
+    def draw(self, canvas, pos):
+        card_loc = (CARD_CENTER[0] + CARD_SIZE[0] * RANKS.index(self.rank), 
+                    CARD_CENTER[1] + CARD_SIZE[1] * SUITS.index(self.suit))
+        canvas.draw_image(card_images, card_loc, CARD_SIZE, [pos[0] + CARD_CENTER[0], pos[1] + CARD_CENTER[1]], CARD_SIZE)
 
     def shuffle(self):
         random.shuffle(self.cards)
@@ -129,6 +158,7 @@ class Game:
                 playing = False
             else:
                 game_over = False
+                
     def player_is_over(self):
         return self.player_hand.get_value() > 21
 
@@ -153,6 +183,3 @@ class Game:
         elif dealer_with_blackjack:
             print("Dealer has blackjack! Dealer wins!")
 
-if __name__ == "__main__":
-    game = Game()
-    game.play()
