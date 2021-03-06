@@ -1,17 +1,6 @@
 import random
 import os 
-import simpleguitk
-SUITS = ('\u2660', '\u2661', '\u2662', '\u2663')
-RANKS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K')
-VALUES = {'A':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, 'T':10, 'J':10, 'Q':10, 'K':10}
-CARD_SIZE = (72, 96)
-CARD_CENTER = (36, 48)
-CARD_BACK_SIZE = (72, 96)
-CARD_BACK_CENTER = (36, 48)
-
-# load card sprites
-card_images = simpleguitk.load_image("http://storage.googleapis.com/codeskulptor-assets/cards_jfitz.png")
-card_back = simpleguitk.load_image("http://storage.googleapis.com/codeskulptor-assets/card_jfitz_back.png")  
+from constants import *
 
 class Card:
     def __init__(self, suit, value):
@@ -90,11 +79,12 @@ class Hand:
                 print(card)
 
 class Game:
+    
     def __init__(self):
         pass
-
+    
     def play(self):
-        playing = True 
+        playing = True
 
         while playing:
             self.deck = Deck()
@@ -108,25 +98,27 @@ class Game:
                 self.dealer_hand.add_card(self.deck.deal())
 
             print("Your hand is:")
-            self.player_hand.display()
+            self.player_hand(self.deck.draw())
             print()
             print("Dealer's hand is:")
             self.dealer_hand.display()
 
-            game_over = True 
+            game_over = True
 
             while game_over:
                 player_with_blackjack, dealer_with_blackjack = self.check_if_blackjack()
                 if player_with_blackjack or dealer_with_blackjack:
                     game_over = False
-                    self.show_blackjack_results(player_with_blackjack, dealer_with_blackjack)
+                    self.show_blackjack_results(
+                        player_with_blackjack, dealer_with_blackjack)
                     continue
-                
+
                 if self.dealer_is_over():
                     print("Dealer busted you won!")
                     game_over = False
 
-                hit_stand = input("What would you like to do:\n [1] Hit or [2] Stand?")
+                hit_stand = input(
+                    "What would you like to do:\n [1] Hit or [2] Stand?")
                 if hit_stand == '1':
                     self.player_hand.add_card(self.deck.deal())
                     self.player_hand.display()
@@ -158,7 +150,7 @@ class Game:
                 playing = False
             else:
                 game_over = False
-                
+
     def player_is_over(self):
         return self.player_hand.get_value() > 21
 
@@ -167,19 +159,18 @@ class Game:
 
     def check_if_blackjack(self):
         player = False
-        dealer = False 
+        dealer = False
         if self.player_hand.get_value() == 21:
-            player = True 
+            player = True
         if self.dealer_hand.get_value() == 21:
-            dealer = True 
+            dealer = True
 
-        return player, dealer 
+        return player, dealer
 
-    def show_blackjack_results(self,player_with_blackjack, dealer_with_blackjack):
+    def show_blackjack_results(self, player_with_blackjack, dealer_with_blackjack):
         if player_with_blackjack and dealer_with_blackjack:
             print("Both players have blackjack! Draw!")
         elif player_with_blackjack:
             print("You have blackjack! You win!")
         elif dealer_with_blackjack:
             print("Dealer has blackjack! Dealer wins!")
-
