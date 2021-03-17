@@ -49,7 +49,7 @@ def button(msg, x, y, w, h, ic, ac, action=None):
     TextRect.center = ((x + (w/2)), (y + (h/2)))
     gameDisplay.blit(TextSurf, TextRect)
 
-deal_loc = button("Deal", 30, 70, 150, 50, light_slat, dark_slat, "deal")
+deal_loc = pygame.Rect(30, 70)
 hit_loc = pygame.Rect(30, 150, 150, 50)
 stand_loc = pygame.Rect(30, 230, 150, 50)
 
