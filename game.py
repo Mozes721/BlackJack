@@ -1,4 +1,4 @@
-from cards import *
+from blackjack_logic import *
 
 
 class Game:

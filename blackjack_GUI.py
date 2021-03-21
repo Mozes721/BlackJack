@@ -1,6 +1,6 @@
 import pygame as pygame
 import random
-from cards import *
+from blackjack_logic import *
 from game import *
 from constants import *
 
@@ -29,13 +29,13 @@ def game_texts(text, x, y):
     pygame.display.update()
 
 
-# def game_card(card, x, y):
+def game_card(card, x, y):
 
-#     TextSurf, TextRect = text_objects(card, textfont)
-#     TextRect.center = (x, y)
-#     gameDisplay.blit(TextSurf, TextRect)
+    TextSurf, TextRect = text_objects(card, textfont)
+    TextRect.center = (x, y)
+    gameDisplay.blit(TextSurf, TextRect)
 
-#     pygame.display.update()
+    pygame.display.update()
 
 
 def button(msg, x, y, w, h, ic, ac, action=None):
@@ -70,11 +70,11 @@ class Play:
             self.player.add_card(self.deck.deal())
 
             game_texts("Dealer's hand is:", 500, 150)
-            print(self.dealer.display())
+            game_card(self.dealer.draw(gameDisplay, ([500, 300])))
 
             # game_card(player_hand, 500, 170)
             game_texts("Your's hand is:", 500, 400)
-            print(self.player.get_value())
+            game_card(self.player.draw(gameDisplay, (500, 500)))
 
             # game_card(dealer_hand, 500, 170)
            
@@ -88,13 +88,11 @@ class Play:
             
             
         def stand(self):
-            self.player.stand()
+            pass
         
 play_blackjack = Play()
 running = True
-deal_btn = button((0, 257, 0), 30, 70, 150, 50, "deal")
-hit_btn = button((0, 255, 0), 30, 150, 150, 50, "hit")
-stand_btn = button((0, 255, 0), 30, 230, 150, 50, "stand")
+
 
 while running:
     for event in pygame.event.get():
