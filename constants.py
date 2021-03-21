@@ -1,4 +1,4 @@
-import simpleguitk
+#import simpleguitk
 import pygame as pygame
 
 display_width = 800
@@ -24,5 +24,5 @@ CARD_BACK_SIZE = (72, 96)
 CARD_BACK_CENTER = (36, 48)
 
 # load card sprites
-card_images = simpleguitk.load_image("http://storage.googleapis.com/codeskulptor-assets/cards_jfitz.png")
-card_back = simpleguitk.load_image("http://storage.googleapis.com/codeskulptor-assets/card_jfitz_back.png")  
+#card_images = simpleguitk.load_image("http://storage.googleapis.com/codeskulptor-assets/cards_jfitz.png")
+#card_back = simpleguitk.load_image("http://storage.googleapis.com/codeskulptor-assets/card_jfitz_back.png")  
