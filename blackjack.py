@@ -37,35 +37,37 @@ def game_card(card, x, y):
 
     pygame.display.update()
 
+class button():
+    def __init__(self, color, x,y,width,height, text=''):
+        self.color = color
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.text = text
 
-def button(msg, x, y, w, h, ic, ac, action=None):
-
-    if x + w > mouse[0] > x and y + h > mouse[1] > y:
-        pygame.draw.rect(gameDisplay, ac, (x, y, w, h))
-    else:
-        pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
-
-    TextSurf, TextRect = text_objects(msg, font)
-    TextRect.center = ((x + (w/2)), (y + (h/2)))
-    gameDisplay.blit(TextSurf, TextRect)
-
-deal_loc = button("Deal", 30, 70, 150, 50, light_slat, dark_slat, "deal")
-hit_loc = pygame.Rect(30, 150, 150, 50)
-stand_loc = pygame.Rect(30, 230, 150, 50)
-
-def button_click(event):
-    x, y = pygame.mouse.get_pos()
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        if pygame.mouse.get_pressed()[0]:
-            if deal_loc.rect.collidepont(x, y):
-                print("hello")
-                deal()
-            if hit_loc.rect.collidepont(x, y):
-                hit()
-            if stand_loc.rect.collidepont(x, y):
-                stand()
+    def draw(self,win,outline=None):
+        #Call this method to draw the button on the screen
+        if outline:
+            pygame.draw.rect(win, outline, (self.x-2,self.y-2,self.width+4,self.height+4),0)
+            
+        pygame.draw.rect(win, self.color, (self.x,self.y,self.width,self.height),0)
         
-        
+        if self.text != '':
+            font = pygame.font.SysFont('comicsans', 60)
+            text = font.render(self.text, 1, (0,0,0))
+            win.blit(text, (self.x + (self.width/2 - text.get_width()/2), self.y + (self.height/2 - text.get_height()/2)))
+
+    def isOver(self, pos):
+        #Pos is the mouse position or a tuple of (x,y) coordinates
+        if pos[0] > self.x and pos[0] < self.x + self.width:
+            if pos[1] > self.y and pos[1] < self.y + self.height:
+                return True
+            
+        return False
+
+def redrawWindow():
+    
 
 def deal():
     global in_play, dealer
@@ -74,8 +76,6 @@ def deal():
         deck = Deck()
         deck.shuffle()
         dealer = Hand()
-        # dealer.add_card(deck.deal())
-        # dealer.add_card(deck.deal())
         game_texts("Dealer's hand is:", 500, 150)
         print(dealer.display())
         # game_card(player_hand, 500, 170)
@@ -96,18 +96,17 @@ def stand():
 
 
 running = True
+deal_btn = button((0, 257, 0), 30, 70, 150, 50, "deal")
+hit_btn = button((0, 255, 0), 30, 150, 150, 50, "hit")
+stand_btn = button((0, 255, 0), 30, 230, 150, 50, "stand")
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        button_click(event)
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
 
-    button("Deal", 30, 70, 150, 50, light_slat, dark_slat, "deal")
-    button("Hit", 30, 150, 150, 50, light_slat, dark_slat, "hit")
-    button("Stand", 30, 230, 150, 50, light_slat, dark_slat, "stand")
 
     
     pygame.display.flip()
