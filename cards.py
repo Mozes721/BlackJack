@@ -40,7 +40,7 @@ class Deck:
         if len(self.cards) > 1:
             return self.cards.pop(0)
 
-class Hand:
+class Hand(Deck):
     def __init__(self, dealer=False):
         self.dealer = dealer
         self.cards = []
@@ -79,7 +79,7 @@ class Hand:
                 print(card)
 
 
-class Game:
+class Game(Hand):
     def __init__(self):
         pass
     
@@ -98,7 +98,7 @@ class Game:
                 self.dealer_hand.add_card(self.deck.deal())
 
             print("Your hand is:")
-            self.player_hand(self.deck.draw())
+            self.player_hand.display()
             print()
             print("Dealer's hand is:")
             self.dealer_hand.display()
@@ -117,9 +117,7 @@ class Game:
                     print("Dealer busted you won!")
                     game_over = False
 
-                hit_stand = input(
-                    "What would you like to do:\n [1] Hit or [2] Stand?")
-                if hit_stand == '1':
+                            
                     self.player_hand.add_card(self.deck.deal())
                     self.player_hand.display()
                     if self.player_is_over():
