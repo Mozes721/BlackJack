@@ -79,7 +79,6 @@ class Play(pygame.sprite.Sprite):
             # card5 = pygame.image.load('img/10S.png').convert()
             # card6 = pygame.image.load('img/6C.png').convert()
 
-
             game_texts("Dealer's hand is:", 500, 150)
 
             #gameDisplay.blit(self.dealer.card_display(), (400, 200))
@@ -109,7 +108,6 @@ class Play(pygame.sprite.Sprite):
         
 play_blackjack = Play()
 running = True
-
 
 while running:
     for event in pygame.event.get():
