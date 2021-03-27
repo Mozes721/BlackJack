@@ -1,39 +1,31 @@
 import random
 import os 
 from constants import *
+import pygame
 
-class Card:
-    def __init__(self, suit, rank):
-        if (suit in SUITS) and (rank in RANKS):
-            self.suit = suit
-            self.rank = rank 
-        else:
-            self.suit = None
-            self.rank = None
-            print("Invalid card: ", suit, rank)
+# class Card:
+#     def __init__(self, suit, rank):
+#         self.suit = suit
+#         self.rank = rank 
 
-    def __str__(self):
-        return self.suit + self.rank
+#     def show(self):
+#         print("{} of {}".format(self.rank, self.suit))
 
-    def get_suit(self):
-        return self.suit
-
-    def get_rank(self):
-        return self.rank
-
-    def __repr__(self):
-        return " of ".join((self.rank, self.rank))
-
-    def draw(self, canvas, pos):
-        card_loc = (CARD_CENTER[0] + CARD_SIZE[0] * RANKS.index(self.rank), 
-                    CARD_CENTER[1] + CARD_SIZE[1] * SUITS.index(self.suit))
-        canvas.draw_image(card_images, card_loc, CARD_SIZE, [pos[0] + CARD_CENTER[0], pos[1] + CARD_CENTER[1]], CARD_SIZE)
-
-
-class Deck(Card):
+class Deck:
     def __init__(self):
-        self.cards = [Card(s,v) for s in SUITS for v in RANKS]
+        self.cards = []
+        self.card_img = {}
+        self.build()
 
+    def build(self):
+        for rank in RANKS:
+            for suit in SUITS:
+                self.cards.append((rank, suit))
+
+                card = "".join((rank, suit))
+                self.card_img[card] = pygame.image.load('img/' + card + '.png').convert()
+
+        
     def shuffle(self):
         random.shuffle(self.cards)
 
@@ -44,11 +36,16 @@ class Deck(Card):
         # return a string representing the deck
         return " ".join( [ str(card) for card in self.cards ] )
 
+
 class Hand(Deck):
     def __init__(self, dealer=False):
         self.dealer = dealer
         self.cards = []
+        self.card_img = {}
         self.rank = 0 
+
+    def __str__(self):
+        return self.cards
     
     def add_card(self, card):
         self.cards.append(card)
@@ -68,11 +65,6 @@ class Hand(Deck):
 
         if has_ace and self.rank > 21:
             self.rank -= 10 
-    
-    def draw(self, canvas, pos):
-        # draw a hand on the canvas, use the draw method for cards
-        for i in range(len(self.cards)):
-            self.cards[i].draw( canvas, ( pos[0] + i * CARD_SIZE[0], pos[1] ) )
 
     def get_rank(self):
         self.calc_hand()
@@ -80,11 +72,17 @@ class Hand(Deck):
 
     def display(self):
         if self.dealer:
-            print(self.cards[0])
+            if self.cards 
+            print(''.join(map(str, self.cards)[0]))
             print("?")
         else:
             for card in self.cards:
                 print(card)
+
+    def card_display(self):
+        if self.dealer:
+            return self.card_img[self.cards]
+
 
 
 class Game(Hand):
@@ -113,6 +111,7 @@ class Game(Hand):
 
             game_over = True
 
+
             while game_over:
                 player_with_blackjack, dealer_with_blackjack = self.check_if_blackjack()
                 if player_with_blackjack or dealer_with_blackjack:
@@ -125,7 +124,6 @@ class Game(Hand):
                     print("Dealer busted you won!")
                     game_over = False
 
-                            
                     self.player_hand.add_card(self.deck.deal())
                     self.player_hand.display()
                     if self.player_is_over():

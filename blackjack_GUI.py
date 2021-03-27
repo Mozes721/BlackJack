@@ -3,7 +3,7 @@ import random
 from blackjack_logic import *
 from game import *
 from constants import *
-
+import sys
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -12,7 +12,7 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 
 pygame.display.set_caption('BlackJack')
 gameDisplay.fill(background_color)
-pygame.draw.rect(gameDisplay, grey, pygame.Rect(0, 0, 250, 600))
+pygame.draw.rect(gameDisplay, grey, pygame.Rect(0, 0, 250, 700))
 
 
 def text_objects(text, font):
@@ -53,7 +53,7 @@ def button(msg, x, y, w, h, ic, ac, action=None):
     gameDisplay.blit(TextSurf, TextRect)
 
 
-class Play:
+class Play(pygame.sprite.Sprite):
     in_play = True
     if in_play:
         def __init__(self):
@@ -64,19 +64,33 @@ class Play:
         def deal(self):
            
             self.dealer.add_card(self.deck.deal())
-            self.dealer.add_card(self.deck.deal())
+            #self.dealer.add_card(self.deck.deal())
 
             self.player.add_card(self.deck.deal())
             self.player.add_card(self.deck.deal())
+
+            print(self.dealer.display())
+
+            # card = pygame.image.load('img/2H.png').convert()
+            # card2 = pygame.image.load('img/AC.png').convert()
+
+            # card3 = pygame.image.load('img/QC.png').convert()
+            # card4 = pygame.image.load('img/JD.png').convert()
+            # card5 = pygame.image.load('img/10S.png').convert()
+            # card6 = pygame.image.load('img/6C.png').convert()
+
 
             game_texts("Dealer's hand is:", 500, 150)
-            game_card(self.dealer.draw(gameDisplay, ([500, 300])))
 
+            #gameDisplay.blit(self.dealer.card_display(), (400, 200))
+            # gameDisplay.blit(card2, (550, 200))
+            
             # game_card(player_hand, 500, 170)
             game_texts("Your's hand is:", 500, 400)
-            game_card(self.player.draw(gameDisplay, (500, 500)))
-
-            # game_card(dealer_hand, 500, 170)
+            # gameDisplay.blit(card3, (300, 450))
+            # gameDisplay.blit(card4, (410, 450))
+            # gameDisplay.blit(card5, (520, 450))
+            # gameDisplay.blit(card6, (630, 450))
            
         def hit(self):
             self.player.add_card(self.deck.deal())
@@ -89,6 +103,9 @@ class Play:
             
         def stand(self):
             pass
+
+        def exit(self):
+            sys.exit()
         
 play_blackjack = Play()
 running = True
@@ -99,9 +116,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        button("Deal", 30, 70, 150, 50, light_slat, dark_slat, play_blackjack.deal)
-        button("Hit", 30, 150, 150, 50, light_slat, dark_slat, play_blackjack.hit)
-        button("Stand", 30, 230, 150, 50, light_slat, dark_slat, play_blackjack.stand)
-
+        button("Deal", 30, 100, 150, 50, light_slat, dark_slat, play_blackjack.deal)
+        button("Hit", 30, 200, 150, 50, light_slat, dark_slat, play_blackjack.hit)
+        button("Stand", 30, 300, 150, 50, light_slat, dark_slat, play_blackjack.stand)
+        button("EXIT", 30, 500, 150, 50, light_slat, dark_red, play_blackjack.exit)
     
     pygame.display.flip()
