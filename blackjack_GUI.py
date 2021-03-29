@@ -80,23 +80,12 @@ class Play(pygame.sprite.Sprite):
             player_1 = pygame.image.load('img/' + self.player.card_val[0] + '.png').convert()
             player_2 = pygame.image.load('img/' + self.player.card_val[1] + '.png').convert()
             
-            # self.player.player_display()
-            # card = pygame.image.load('img/2H.png').convert()
-            # card2 = pygame.image.load('img/AC.png').convert()
 
-            # card3 = pygame.image.load('img/QC.png').convert()
-            # card4 = pygame.image.load('img/JD.png').convert()
-            # card5 = pygame.image.load('img/10S.png').convert()
-            # card6 = pygame.image.load('img/6C.png').convert()
-
-<<<<<<< HEAD
             self.dealer.dealer_display()
-=======
->>>>>>> d9d228b7fd48e2a53b662197bff89f35dde16dcf
+
             game_texts("Dealer's hand is:", 500, 150)
 
     
-            #self.dealer.card_img()
             gameDisplay.blit(deal_1, (400, 200))
             gameDisplay.blit(deal_2, (550, 200))
             #gameDisplay.blit(self.dealer.dealer_display(), (550, 200))
