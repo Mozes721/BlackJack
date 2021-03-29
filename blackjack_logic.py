@@ -2,53 +2,51 @@ import random
 import os 
 from constants import *
 import pygame
-
-# class Card:
-#     def __init__(self, suit, rank):
-#         self.suit = suit
-#         self.rank = rank 
-
-#     def show(self):
-#         print("{} of {}".format(self.rank, self.suit))
+import numpy as np
+import itertools
 
 class Deck:
     def __init__(self):
         self.cards = []
-        self.card_img = {}
+        self.card = None
         self.build()
 
     def build(self):
         for rank in RANKS:
             for suit in SUITS:
                 self.cards.append((rank, suit))
-
-                card = "".join((rank, suit))
-                self.card_img[card] = pygame.image.load('img/' + card + '.png').convert()
-
+                #self.cards_images = "".join('img/' + card + '.png')
+        #self.cards_images = [j for i in self.cards_images for j in i]
         
     def shuffle(self):
         random.shuffle(self.cards)
+        
 
     def deal(self):
+        self.card = self.cards.pop()
         return self.cards.pop()
 
+    # def card_img(self):
+    #     #return self.cards_images.pop(self.cards_images)
+    #     print(self.cards)
+    #     print(self.cards_images)
     def __str__(self):
         # return a string representing the deck
         return " ".join( [ str(card) for card in self.cards ] )
 
 
 class Hand(Deck):
-    def __init__(self, dealer=False):
-        self.dealer = dealer
+    def __init__(self):
         self.cards = []
-        self.card_img = {}
+        self.card_val = []
+        self.card = None
         self.rank = 0 
 
-    def __str__(self):
-        return self.cards
+
     
     def add_card(self, card):
         self.cards.append(card)
+        self.card = card
 
     def calc_hand(self):
         self.rank = 0
@@ -70,18 +68,24 @@ class Hand(Deck):
         self.calc_hand()
         return self.rank 
 
-    def display(self):
-        if self.dealer:
-            if self.cards 
-            print(''.join(map(str, self.cards)[0]))
-            print("?")
-        else:
-            for card in self.cards:
-                print(card)
+    def player_display(self):
+        for card in self.cards:
+            dealer_cards = "".join((card[0], card[1]))
+            self.card_val.append(dealer_cards)
 
-    def card_display(self):
-        if self.dealer:
-            return self.card_img[self.cards]
+    def dealer_display(self):
+        for card in self.cards:
+            dealer_cards = "".join((card[0], card[1]))
+            self.card_val.append(dealer_cards)
+            
+            
+            
+    # def dealer_display_second(self):
+    #     for card in self.cards:
+    #         card = "".join((card[0], card[1]))
+    #         img_card = pygame.image.load('img/' + card + '.png').convert()
+    #     return img_card[1]
+
 
 
 
@@ -104,10 +108,10 @@ class Game(Hand):
                 self.dealer_hand.add_card(self.deck.deal())
 
             print("Your hand is:")
-            self.player_hand.display()
+            self.player_hand.player_display()
             print()
             print("Dealer's hand is:")
-            self.dealer_hand.display()
+            self.dealer_hand.dealer_display()
 
             game_over = True
 

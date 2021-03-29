@@ -4,6 +4,7 @@ from blackjack_logic import *
 from game import *
 from constants import *
 import sys
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -62,15 +63,24 @@ class Play(pygame.sprite.Sprite):
             self.player = Hand()
 
         def deal(self):
-           
+            self.deck.shuffle()
             self.dealer.add_card(self.deck.deal())
-            #self.dealer.add_card(self.deck.deal())
+            self.dealer.add_card(self.deck.deal())
+
+            self.dealer.dealer_display()
 
             self.player.add_card(self.deck.deal())
             self.player.add_card(self.deck.deal())
 
-            print(self.dealer.display())
-
+            self.player.player_display()
+            
+            deal_1 = pygame.image.load('img/' + self.dealer.card_val[0] + '.png').convert()
+            deal_2 = pygame.image.load('img/' + self.dealer.card_val[1] + '.png').convert()
+            
+            player_1 = pygame.image.load('img/' + self.player.card_val[0] + '.png').convert()
+            player_2 = pygame.image.load('img/' + self.player.card_val[1] + '.png').convert()
+            
+            # self.player.player_display()
             # card = pygame.image.load('img/2H.png').convert()
             # card2 = pygame.image.load('img/AC.png').convert()
 
@@ -79,16 +89,19 @@ class Play(pygame.sprite.Sprite):
             # card5 = pygame.image.load('img/10S.png').convert()
             # card6 = pygame.image.load('img/6C.png').convert()
 
-
+            self.dealer.dealer_display()
             game_texts("Dealer's hand is:", 500, 150)
 
-            #gameDisplay.blit(self.dealer.card_display(), (400, 200))
-            # gameDisplay.blit(card2, (550, 200))
-            
+    
+            #self.dealer.card_img()
+            gameDisplay.blit(deal_1, (400, 200))
+            gameDisplay.blit(deal_2, (550, 200))
+            #gameDisplay.blit(self.dealer.dealer_display(), (550, 200))
             # game_card(player_hand, 500, 170)
             game_texts("Your's hand is:", 500, 400)
-            # gameDisplay.blit(card3, (300, 450))
-            # gameDisplay.blit(card4, (410, 450))
+        
+            gameDisplay.blit(player_1, (400, 450))
+            gameDisplay.blit(player_2, (510, 450))
             # gameDisplay.blit(card5, (520, 450))
             # gameDisplay.blit(card6, (630, 450))
            
