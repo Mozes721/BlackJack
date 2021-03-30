@@ -61,7 +61,6 @@ class Play(pygame.sprite.Sprite):
             self.deck = Deck()
             self.dealer = Hand()
             self.player = Hand()
-
         def deal(self):
             self.deck.shuffle()
             self.dealer.add_card(self.deck.deal())
@@ -73,12 +72,12 @@ class Play(pygame.sprite.Sprite):
             self.player.add_card(self.deck.deal())
 
             self.player.player_display()
+            self.player_card = 1
+            dealer_card = pygame.image.load('img/' + self.dealer.card_val[0] + '.png').convert()
+            dealer_card_2 = pygame.image.load('img/' + self.dealer.card_val[1] + '.png').convert()
             
-            deal_1 = pygame.image.load('img/' + self.dealer.card_val[0] + '.png').convert()
-            deal_2 = pygame.image.load('img/' + self.dealer.card_val[1] + '.png').convert()
-            
-            player_1 = pygame.image.load('img/' + self.player.card_val[0] + '.png').convert()
-            player_2 = pygame.image.load('img/' + self.player.card_val[1] + '.png').convert()
+            player_card = pygame.image.load('img/' + self.player.card_val[0] + '.png').convert()
+            player_card_2 = pygame.image.load('img/' + self.player.card_val[1] + '.png').convert()
             
             # self.player.player_display()
             # card = pygame.image.load('img/2H.png').convert()
@@ -89,32 +88,39 @@ class Play(pygame.sprite.Sprite):
             # card5 = pygame.image.load('img/10S.png').convert()
             # card6 = pygame.image.load('img/6C.png').convert()
 
-<<<<<<< HEAD
             self.dealer.dealer_display()
-=======
->>>>>>> d9d228b7fd48e2a53b662197bff89f35dde16dcf
             game_texts("Dealer's hand is:", 500, 150)
 
     
             #self.dealer.card_img()
-            gameDisplay.blit(deal_1, (400, 200))
-            gameDisplay.blit(deal_2, (550, 200))
+            gameDisplay.blit(dealer_card, (400, 200))
+            gameDisplay.blit(dealer_card_2, (550, 200))
             #gameDisplay.blit(self.dealer.dealer_display(), (550, 200))
             # game_card(player_hand, 500, 170)
             game_texts("Your's hand is:", 500, 400)
         
-            gameDisplay.blit(player_1, (400, 450))
-            gameDisplay.blit(player_2, (510, 450))
+            gameDisplay.blit(player_card, (300, 450))
+            gameDisplay.blit(player_card_2, (410, 450))
             # gameDisplay.blit(card5, (520, 450))
             # gameDisplay.blit(card6, (630, 450))
-           
+            
         def hit(self):
             self.player.add_card(self.deck.deal())
-            self.player.display()
-
-            if self.player_is_over():
-                print("You have busted dealer won")
-                in_play = False
+            self.player_card += 1
+            if self.player_card == 2:
+                self.player.player_display()
+                player_card_3 = pygame.image.load('img/' + self.player.card_val[2] + '.png').convert()
+                gameDisplay.blit(player_card_3, (520, 450))
+                
+            if self.player_card == 3:
+                self.player.player_display()
+                player_card_4 = pygame.image.load('img/' + self.player.card_val[3] + '.png').convert()
+                gameDisplay.blit(player_card_4, (630, 450))
+            if self.player_card >= 4:
+                sys.exit()
+            # if self.player_is_over():
+            #     print("You have busted dealer won")
+            #     in_play = False
             
             
         def stand(self):

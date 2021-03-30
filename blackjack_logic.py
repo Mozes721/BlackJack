@@ -42,11 +42,10 @@ class Hand(Deck):
         self.card = None
         self.rank = 0 
 
-
-    
     def add_card(self, card):
         self.cards.append(card)
         self.card = card
+
 
     def calc_hand(self):
         self.rank = 0
@@ -60,7 +59,6 @@ class Hand(Deck):
                     self.rank += 11
                 else:
                     self.rank += 10
-
         if has_ace and self.rank > 21:
             self.rank -= 10 
 
@@ -69,10 +67,12 @@ class Hand(Deck):
         return self.rank 
 
     def player_display(self):
+
         for card in self.cards:
             dealer_cards = "".join((card[0], card[1]))
-            self.card_val.append(dealer_cards)
-
+            if dealer_cards not in self.card_val:
+                self.card_val.append(dealer_cards)
+    
     def dealer_display(self):
         for card in self.cards:
             dealer_cards = "".join((card[0], card[1]))
