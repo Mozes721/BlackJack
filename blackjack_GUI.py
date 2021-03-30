@@ -78,28 +78,18 @@ class Play(pygame.sprite.Sprite):
             
             player_card = pygame.image.load('img/' + self.player.card_val[0] + '.png').convert()
             player_card_2 = pygame.image.load('img/' + self.player.card_val[1] + '.png').convert()
-            
-
-            # card3 = pygame.image.load('img/QC.png').convert()
-            # card4 = pygame.image.load('img/JD.png').convert()
-            # card5 = pygame.image.load('img/10S.png').convert()
-            # card6 = pygame.image.load('img/6C.png').convert()
 
             self.dealer.dealer_display()
             game_texts("Dealer's hand is:", 500, 150)
 
-    
-            #self.dealer.card_img()
             gameDisplay.blit(dealer_card, (400, 200))
             gameDisplay.blit(dealer_card_2, (550, 200))
-            #gameDisplay.blit(self.dealer.dealer_display(), (550, 200))
-            # game_card(player_hand, 500, 170)
+ 
             game_texts("Your's hand is:", 500, 400)
         
             gameDisplay.blit(player_card, (300, 450))
             gameDisplay.blit(player_card_2, (410, 450))
-            # gameDisplay.blit(card5, (520, 450))
-            # gameDisplay.blit(card6, (630, 450))
+
             
         def hit(self):
             self.player.add_card(self.deck.deal())
@@ -115,10 +105,7 @@ class Play(pygame.sprite.Sprite):
                 gameDisplay.blit(player_card_4, (630, 450))
             if self.player_card >= 4:
                 sys.exit()
-            # if self.player_is_over():
-            #     print("You have busted dealer won")
-            #     in_play = False
-            
+
             
         def stand(self):
             pass
