@@ -15,8 +15,7 @@ class Deck:
         for rank in RANKS:
             for suit in SUITS:
                 self.cards.append((rank, suit))
-                #self.cards_images = "".join('img/' + card + '.png')
-        #self.cards_images = [j for i in self.cards_images for j in i]
+                
         
     def shuffle(self):
         random.shuffle(self.cards)
@@ -26,10 +25,7 @@ class Deck:
         self.card = self.cards.pop()
         return self.cards.pop()
 
-    # def card_img(self):
-    #     #return self.cards_images.pop(self.cards_images)
-    #     print(self.cards)
-    #     print(self.cards_images)
+  
     def __str__(self):
         # return a string representing the deck
         return " ".join( [ str(card) for card in self.cards ] )
@@ -78,16 +74,6 @@ class Hand(Deck):
             dealer_cards = "".join((card[0], card[1]))
             self.card_val.append(dealer_cards)
             
-            
-            
-    # def dealer_display_second(self):
-    #     for card in self.cards:
-    #         card = "".join((card[0], card[1]))
-    #         img_card = pygame.image.load('img/' + card + '.png').convert()
-    #     return img_card[1]
-
-
-
 
 class Game(Hand):
     def __init__(self):
