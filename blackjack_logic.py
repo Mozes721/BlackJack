@@ -5,89 +5,87 @@ import pygame
 import numpy as np
 import itertools
 
+# class Card:
+#     def __init__(self, suit, value):
+#         if (suit in SUITS) and (value in RANKS):
+#             self.suit = suit  
+#             self.value = value  
+#         else:
+#             self.suit = None
+#             self.rank = None
+#             print("Invalid card: ", suit, value)
 class Deck:
     def __init__(self):
         self.cards = []
-        self.card = None
         self.build()
 
     def build(self):
-        for rank in RANKS:
+        for value in RANKS:
             for suit in SUITS:
-                self.cards.append((rank, suit))
-                #self.cards_images = "".join('img/' + card + '.png')
-        #self.cards_images = [j for i in self.cards_images for j in i]
-        
+                self.cards.append((value, suit))
+  
     def shuffle(self):
         random.shuffle(self.cards)
         
 
     def deal(self):
-        self.card = self.cards.pop()
-        return self.cards.pop()
+        if len(self.cards) > 1:
+            return self.cards.pop()
+    
+    # def get_suit(self):
+    #     return self.suit
 
-    # def card_img(self):
-    #     #return self.cards_images.pop(self.cards_images)
-    #     print(self.cards)
-    #     print(self.cards_images)
-    def __str__(self):
-        # return a string representing the deck
-        return " ".join( [ str(card) for card in self.cards ] )
+    # def get_value(self):
+    #     return self.value
+
+    # def __str__(self):
+    #     return " ".join( [ str(card) for card in self.cards ] )
 
 
 class Hand(Deck):
     def __init__(self):
         self.cards = []
-        self.card_val = []
-        self.card = None
-        self.rank = 0 
+        self.card_img = []
+        self.value = 0 
 
     def add_card(self, card):
         self.cards.append(card)
-        self.card = card
-
 
     def calc_hand(self):
-        self.rank = 0
-        has_ace = False
-        for card in self.cards:
-            if card.rank.isnumeric():
-                self.rank += int(card.rank)
+
+        first_card_index = [a_card[0] for a_card in self.cards]
+        non_aces = [c for c in first_card_index if c != 'A']
+        aces = [c for c in first_card_index if c == 'A']
+
+        for card in non_aces:
+            if card in 'JQK':
+                self.value += 10
             else:
-                if card.rank == "A":
-                    has_ace = True
-                    self.rank += 11
-                else:
-                    self.rank += 10
-        if has_ace and self.rank > 21:
-            self.rank -= 10 
+                self.value += int(card)
 
-    def get_rank(self):
+        for card in aces:
+            if self.value <= 10:
+                self.value += 11
+            else:
+                self.value += 1
+
+    def get_value(self):
         self.calc_hand()
-        return self.rank 
+        print(self.value)
 
-    def player_display(self):
-
+        
+    def display_cards(self):
         for card in self.cards:
             dealer_cards = "".join((card[0], card[1]))
-            if dealer_cards not in self.card_val:
-                self.card_val.append(dealer_cards)
-    
-    def dealer_display(self):
-        for card in self.cards:
-            dealer_cards = "".join((card[0], card[1]))
-            self.card_val.append(dealer_cards)
+            if dealer_cards not in self.card_img:
+                self.card_img.append(dealer_cards)
             
-            
-            
-    # def dealer_display_second(self):
+    # def dealer_display(self):
     #     for card in self.cards:
-    #         card = "".join((card[0], card[1]))
-    #         img_card = pygame.image.load('img/' + card + '.png').convert()
-    #     return img_card[1]
-
-
-
+    #         dealer_cards = "".join((card[0], card[1]))
+    #         self.card_img.append(dealer_cards)
+     
+        
 
 class Game(Hand):
     def __init__(self):
@@ -135,8 +133,8 @@ class Game(Hand):
                         game_over = False
 
                 else:
-                    player_hand_rank = self.player_hand.get_rank()
-                    dealer_hand_rank = self.dealer_hand.get_rank()
+                    player_hand_rank = self.player_hand.get_value()
+                    dealer_hand_rank = self.dealer_hand.get_value()
 
                     print("Final Results:")
                     print("Your hand:", player_hand_rank)
@@ -160,17 +158,17 @@ class Game(Hand):
                 game_over = False
 
     def player_is_over(self):
-        return self.player_hand.get_rank() > 21
+        return self.player_hand.get_value() > 21
 
     def dealer_is_over(self):
-        return self.dealer_hand.get_rank() > 21
+        return self.dealer_hand.get_value() > 21
 
     def check_if_blackjack(self):
         player = False
         dealer = False
-        if self.player_hand.get_rank() == 21:
+        if self.player_hand.get_value() == 21:
             player = True
-        if self.dealer_hand.get_rank() == 21:
+        if self.dealer_hand.get_value() == 21:
             dealer = True
 
         return player, dealer
