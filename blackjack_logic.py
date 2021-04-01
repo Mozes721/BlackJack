@@ -55,13 +55,11 @@ class Hand(Deck):
         self.calc_hand()
         print(self.value)
 
-        
     def display_cards(self):
         for card in self.cards:
             dealer_cards = "".join((card[0], card[1]))
             if dealer_cards not in self.card_img:
                 self.card_img.append(dealer_cards)
-            
 
 class Game(Hand):
     def __init__(self):
@@ -88,7 +86,6 @@ class Game(Hand):
             self.dealer_hand.dealer_display()
 
             game_over = True
-
 
             while game_over:
                 player_with_blackjack, dealer_with_blackjack = self.check_if_blackjack()
