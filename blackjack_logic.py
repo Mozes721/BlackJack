@@ -22,8 +22,14 @@ class Deck:
     def build(self):
         for value in RANKS:
             for suit in SUITS:
+<<<<<<< HEAD
                 self.cards.append((value, suit))
   
+=======
+                self.cards.append((rank, suit))
+                
+        
+>>>>>>> 4aa3d6afcf1c47731e1c7e6897b1e768dbc83b4c
     def shuffle(self):
         random.shuffle(self.cards)
         
@@ -38,8 +44,15 @@ class Deck:
     # def get_value(self):
     #     return self.value
 
+<<<<<<< HEAD
     # def __str__(self):
     #     return " ".join( [ str(card) for card in self.cards ] )
+=======
+  
+    def __str__(self):
+        # return a string representing the deck
+        return " ".join( [ str(card) for card in self.cards ] )
+>>>>>>> 4aa3d6afcf1c47731e1c7e6897b1e768dbc83b4c
 
 
 class Hand(Deck):
@@ -77,6 +90,7 @@ class Hand(Deck):
     def display_cards(self):
         for card in self.cards:
             dealer_cards = "".join((card[0], card[1]))
+<<<<<<< HEAD
             if dealer_cards not in self.card_img:
                 self.card_img.append(dealer_cards)
             
@@ -86,6 +100,16 @@ class Hand(Deck):
     #         self.card_img.append(dealer_cards)
      
         
+=======
+            if dealer_cards not in self.card_val:
+                self.card_val.append(dealer_cards)
+    
+    def dealer_display(self):
+        for card in self.cards:
+            dealer_cards = "".join((card[0], card[1]))
+            self.card_val.append(dealer_cards)
+            
+>>>>>>> 4aa3d6afcf1c47731e1c7e6897b1e768dbc83b4c
 
 class Game(Hand):
     def __init__(self):
