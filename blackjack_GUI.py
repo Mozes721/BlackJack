@@ -79,7 +79,6 @@ class Play(pygame.sprite.Sprite):
         
             game_texts("Dealer's hand is:", 500, 150)
 
-            #self.dealer.card_img()
             gameDisplay.blit(dealer_card, (400, 200))
             gameDisplay.blit(dealer_card_2, (550, 200))
 
@@ -111,7 +110,6 @@ class Play(pygame.sprite.Sprite):
             self.dealer.get_value()
             print("PLAYER")
             self.player.get_value()
-            
 
         def exit(self):
             sys.exit()
