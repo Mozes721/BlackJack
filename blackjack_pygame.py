@@ -137,16 +137,10 @@ class Play:
             if self.player.value > 21:
                 game_finish("You Busted!", 500, 250, red)
             
-<<<<<<< HEAD
         self.player.value = 0
 
         if self.player_card > 4:
             sys.exit()
-=======
-            self.player.value = 0
-            if self.player_card > 4:
-                sys.exit()
->>>>>>> ffe3b5c82bc3cc3ebb1ff678e97af3d90cabf694
             
             
     def stand(self):
