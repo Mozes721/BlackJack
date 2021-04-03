@@ -25,7 +25,6 @@ def end_text_objects(text, font, color):
 
 #game text display
 def game_texts(text, x, y):
-    
     TextSurf, TextRect = text_objects(text, textfont)
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
@@ -34,19 +33,15 @@ def game_texts(text, x, y):
 
 
 def game_finish(text, x, y, color):
-    
     TextSurf, TextRect = end_text_objects(text, game_end, color)
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
-
     pygame.display.update()
 
 def black_jack(text, x, y, color):
-    
     TextSurf, TextRect = end_text_objects(text, blackjack, color)
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
-
     pygame.display.update()
 
 #button display
@@ -145,7 +140,6 @@ class Play:
                     game_finish("You Busted!", 500, 250, red)
             
             self.player.value = 0
-
             if self.player_card > 4:
                 sys.exit()
             
