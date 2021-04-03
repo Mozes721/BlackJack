@@ -1,7 +1,6 @@
 import random
 from constants import *
 
-
 class Deck:
     def __init__(self):
         self.cards = []
@@ -30,7 +29,6 @@ class Hand(Deck):
         self.cards.append(card)
 
     def calc_hand(self):
-
         first_card_index = [a_card[0] for a_card in self.cards]
         non_aces = [c for c in first_card_index if c != 'A']
         aces = [c for c in first_card_index if c == 'A']
