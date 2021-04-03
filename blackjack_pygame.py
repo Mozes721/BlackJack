@@ -43,7 +43,7 @@ def black_jack(text, x, y, color):
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
     pygame.display.update()
-
+    
 #button display
 def button(msg, x, y, w, h, ic, ac, action=None):
     mouse = pygame.mouse.get_pos()
@@ -163,8 +163,6 @@ class Play:
     def exit(self):
         sys.exit()
     
-
-
     # def run_again(self):
     #     time.sleep(2)
     #     self.player.value = 0
