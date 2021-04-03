@@ -25,7 +25,6 @@ def end_text_objects(text, font, color):
 
 #game text display
 def game_texts(text, x, y):
-    
     TextSurf, TextRect = text_objects(text, textfont)
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
@@ -34,19 +33,15 @@ def game_texts(text, x, y):
 
 
 def game_finish(text, x, y, color):
-    
     TextSurf, TextRect = end_text_objects(text, game_end, color)
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
-
     pygame.display.update()
 
 def black_jack(text, x, y, color):
-    
     TextSurf, TextRect = end_text_objects(text, blackjack, color)
     TextRect.center = (x, y)
     gameDisplay.blit(TextSurf, TextRect)
-
     pygame.display.update()
 
 #button display
@@ -142,10 +137,16 @@ class Play:
             if self.player.value > 21:
                 game_finish("You Busted!", 500, 250, red)
             
+<<<<<<< HEAD
         self.player.value = 0
 
         if self.player_card > 4:
             sys.exit()
+=======
+            self.player.value = 0
+            if self.player_card > 4:
+                sys.exit()
+>>>>>>> ffe3b5c82bc3cc3ebb1ff678e97af3d90cabf694
             
             
     def stand(self):
