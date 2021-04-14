@@ -77,12 +77,18 @@ class Play:
         print(self.player.value)
         if self.player.value == 21 and self.dealer.value == 21:
             black_jack("Both with BlackJack!", 500, 250, grey)
+            time.sleep(4)
+            self.play_or_exit()
         elif self.player.value == 21:
             black_jack("You  BlackJack!", 500, 250, green)
+            time.sleep(4)
+            self.play_or_exit()
         elif self.dealer.value == 21:
             show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png').convert()
             gameDisplay.blit(show_dealer_card, (550, 200))
             black_jack("Dealer has BlackJack!", 500, 250, red)
+            time.sleep(4)
+            self.play_or_exit()
             
         self.player.value = 0
         self.dealer.value = 0
@@ -126,6 +132,9 @@ class Play:
 
             if self.player.value > 21:
                 game_finish("You Busted!", 500, 250, red)
+                time.sleep(4)
+                self.play_or_exit()
+                
             
                 
         if self.player_card == 3:
@@ -136,6 +145,8 @@ class Play:
                 
             if self.player.value > 21:
                 game_finish("You Busted!", 500, 250, red)
+                time.sleep(4)
+                self.play_or_exit()
             
         self.player.value = 0
 
@@ -151,25 +162,33 @@ class Play:
         self.player.calc_hand()
         if self.player.value > self.dealer.value:
             game_finish("You Won!", 500, 250, green)
-            #self.run_again()
+            time.sleep(4)
+            self.play_or_exit()
         elif self.player.value < self.dealer.value:
             game_finish("Dealer Wins!", 500, 250, red)
-            #self.run_again()
+            time.sleep(4)
+            self.play_or_exit()
         else:
             game_finish("It's a Tie!", 500, 250, grey)
-            # self.run_again()
+            time.sleep(4)
+            self.play_or_exit()
         
-        
+    
     def exit(self):
         sys.exit()
     
-    # def run_again(self):
-    #     time.sleep(2)
-    #     self.player.value = 0
-    #     self.dealer.value = 0
-    #     gameDisplay.fill(background_color)
-    #     pygame.draw.rect(gameDisplay, grey, pygame.Rect(0, 0, 250, 700))
-    #     pygame.display.update()
+    def play_or_exit(self):
+        game_texts("Play again press Deal!", 200, 80)
+        time.sleep(3)
+        self.player.value = 0
+        self.dealer.value = 0
+        self.deck = Deck()
+        self.dealer = Hand()
+        self.player = Hand()
+        self.deck.shuffle()
+        gameDisplay.fill(background_color)
+        pygame.draw.rect(gameDisplay, grey, pygame.Rect(0, 0, 250, 700))
+        pygame.display.update()
 
         
 play_blackjack = Play()
