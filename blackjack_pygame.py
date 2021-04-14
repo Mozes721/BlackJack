@@ -71,10 +71,7 @@ class Play:
 
         self.dealer.calc_hand()
         self.player.calc_hand()
-        print("DEALER")
-        print(self.dealer.value)
-        print("PLAYER")
-        print(self.player.value)
+        
         if self.player.value == 21 and self.dealer.value == 21:
             black_jack("Both with BlackJack!", 500, 250, grey)
             time.sleep(4)
