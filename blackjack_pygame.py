@@ -77,7 +77,7 @@ class Play:
             time.sleep(4)
             self.play_or_exit()
         elif self.player.value == 21:
-            black_jack("You  BlackJack!", 500, 250, green)
+            black_jack("You got BlackJack!", 500, 250, green)
             time.sleep(4)
             self.play_or_exit()
         elif self.dealer.value == 21:
