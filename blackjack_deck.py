@@ -48,6 +48,6 @@ class Hand(Deck):
 
     def display_cards(self):
         for card in self.cards:
-            dealer_cards = "".join((card[0], card[1]))
-            if dealer_cards not in self.card_img:
-                self.card_img.append(dealer_cards)
+            cards = "".join((card[0], card[1]))
+            if cards not in self.card_img:
+                self.card_img.append(cards)
