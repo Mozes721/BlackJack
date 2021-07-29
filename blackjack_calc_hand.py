@@ -13,6 +13,7 @@ for i in range(2):
 print(player.cards)
 print(dealer.cards)
 
+
 player.add_card(deck.deal())
 
 print(player.cards)
