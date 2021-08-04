@@ -31,7 +31,7 @@ def game_texts(text, x, y):
 
     pygame.display.update()
 
-
+ 
 def game_finish(text, x, y, color):
     TextSurf, TextRect = end_text_objects(text, game_end, color)
     TextRect.center = (x, y)
