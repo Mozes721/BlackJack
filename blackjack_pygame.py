@@ -71,17 +71,20 @@ class Play:
 
         self.dealer.calc_hand()
         self.player.calc_hand()
+
+        show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png').convert()
         
         if self.player.value == 21 and self.dealer.value == 21:
+            gameDisplay.blit(show_dealer_card, (550, 200))
             black_jack("Both with BlackJack!", 500, 250, grey)
             time.sleep(4)
             self.play_or_exit()
         elif self.player.value == 21:
+            gameDisplay.blit(show_dealer_card, (550, 200))
             black_jack("You got BlackJack!", 500, 250, green)
             time.sleep(4)
             self.play_or_exit()
         elif self.dealer.value == 21:
-            show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png').convert()
             gameDisplay.blit(show_dealer_card, (550, 200))
             black_jack("Dealer has BlackJack!", 500, 250, red)
             time.sleep(4)
