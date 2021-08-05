@@ -21,6 +21,5 @@ print(player.cards)
 player.calc_hand()
 dealer.calc_hand()
 
-print(dealer.value)
-print(player.value)
+
 
