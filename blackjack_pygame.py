@@ -124,29 +124,23 @@ class Play:
         self.player.add_card(self.deck.deal())
         self.blackjack()
         self.player_card += 1
+        
         if self.player_card == 2:
             self.player.calc_hand()
             self.player.display_cards()
             player_card_3 = pygame.image.load('img/' + self.player.card_img[2] + '.png').convert()
             gameDisplay.blit(player_card_3, (520, 450))
 
-            if self.player.value > 21:
-                game_finish("You Busted!", 500, 250, red)
-                time.sleep(4)
-                self.play_or_exit()
-                
-            
-                
         if self.player_card == 3:
             self.player.calc_hand()
             self.player.display_cards()
             player_card_4 = pygame.image.load('img/' + self.player.card_img[3] + '.png').convert()
             gameDisplay.blit(player_card_4, (630, 450))
                 
-            if self.player.value > 21:
-                game_finish("You Busted!", 500, 250, red)
-                time.sleep(4)
-                self.play_or_exit()
+        if self.player.value > 21:
+            game_finish("You Busted!", 500, 250, red)
+            time.sleep(4)
+            self.play_or_exit()
             
         self.player.value = 0
 
