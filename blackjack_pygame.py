@@ -131,10 +131,6 @@ class Play:
             player_card_3 = pygame.image.load('img/' + self.player.card_img[2] + '.png').convert()
             gameDisplay.blit(player_card_3, (520, 450))
 
-<<<<<<< Updated upstream
-=======
-                
->>>>>>> Stashed changes
         if self.player_card == 3:
             self.player.calc_hand()
             self.player.display_cards()
@@ -181,7 +177,6 @@ class Play:
         self.player.value = 0
         self.dealer.value = 0
         self.deck = Deck()
-        self.deck.shuffle()
         self.dealer = Hand()
         self.player = Hand()
         self.deck.shuffle()
