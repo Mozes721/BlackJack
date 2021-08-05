@@ -126,8 +126,6 @@ class Play:
         self.player.display_cards()
         self.player_card += 1
         if self.player_card == 2:
-            # self.player.calc_hand()
-            # self.player.display_cards()
             player_card_3 = pygame.image.load('img/' + self.player.card_img[2] + '.png').convert()
             gameDisplay.blit(player_card_3, (520, 450))
 
@@ -139,8 +137,6 @@ class Play:
             
                 
         if self.player_card == 3:
-            # self.player.calc_hand()
-            # self.player.display_cards()
             player_card_4 = pygame.image.load('img/' + self.player.card_img[3] + '.png').convert()
             gameDisplay.blit(player_card_4, (630, 450))
                 
