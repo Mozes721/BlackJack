@@ -119,7 +119,7 @@ class Play:
         self.blackjack()
             
             
-            
+
     def hit(self):
         self.player.add_card(self.deck.deal())
         self.blackjack()
@@ -138,6 +138,8 @@ class Play:
             gameDisplay.blit(player_card_4, (630, 450))
                 
         if self.player.value > 21:
+            show_dealer_card = pygame.image.load('img/' + self.dealer.card_img[1] + '.png').convert()
+            gameDisplay.blit(show_dealer_card, (550, 200))
             game_finish("You Busted!", 500, 250, red)
             time.sleep(4)
             self.play_or_exit()
